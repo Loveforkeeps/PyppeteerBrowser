@@ -6,7 +6,7 @@ import asyncio
 from pyppeteer import launch
 from pyppeteer import errors
 import sys
-
+import argparse
 
 class PyppeteerBrowser():
     def __init__(self, urls, maxtab=20, browserpath=None, timeout=1000 * 60):
@@ -51,7 +51,11 @@ class PyppeteerBrowser():
         browser = await launch(
             options,
             args=[
-                '--window-size=' + self.window_size, '--no-sandbox',
+                '--window-size=' + self.window_size,
+                '--no-sandbox',
+                '--incognito',
+                '--ignore-certificate-errors',
+                '--disable-setuid-sandbox',
                 '--disable-infobars', '--disable-extensions'
                 # '--proxy-server=http://127.0.0.1:8080'
             ])
@@ -176,3 +180,5 @@ if __name__ == "__main__":
     pb.screenshot = True
     pb.headless_dis()
     pb.launch()
+    
+
